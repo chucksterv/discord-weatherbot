@@ -4,6 +4,7 @@ use Discord\Builders\MessageBuilder;
 use Discord\Discord;
 
 require_once __DIR__.'/vendor/autoload.php';
+require_once 'database.php';
 require_once 'weather.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
@@ -11,14 +12,14 @@ $dotenv->load();
 
 $current_hour = date('H');
 
-if ($current_hour >= 6 && $current_hour < 7) {
-    $weather_api = new WeatherAPI();
-    $weather_data = $weather_api->getWeatherData();
+// if ($current_hour >= 6 && $current_hour < 7) {
+$weather_api = new WeatherAPI();
+$weather_data = $weather_api->getWeatherData();
 
-} elseif ($current_hour >= 1 && $current_hour < 2) {
-    $weather_api = new WeatherAPI(latitude : 36.309384, longitude : -115.294567, timezone : "America/Los_Angeles", city : "Las Vegas", temp_format : "F");
-    $weather_data = $weather_api->getWeatherData();
-}
+// } elseif ($current_hour >= 1 && $current_hour < 2) {
+//     $weather_api = new WeatherAPI(latitude : 36.309384, longitude : -115.294567, timezone : "America/Los_Angeles", city : "Las Vegas", temp_format : "F");
+//     $weather_data = $weather_api->getWeatherData();
+// }
 //Todo Add error handling
 $discord = new Discord(
     [
