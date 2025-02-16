@@ -14,9 +14,10 @@ try {
       city VARCHAR (50) NOT NULL,
       max_temp FLOAT NOT NULL,
       min_temp FLOAT NOT NULL,
-      max_temp_f FLOAT GENERATED ALWAYS AS (max_temp * 9 / 5) STORED,
-      min_temp_f FLOAT GENERATED ALWAYS AS (min_temp * 9 / 5) STORED,
-      uv_index FLOAT NOT NULL
+      max_temp_f NUMERIC GENERATED ALWAYS AS ((max_temp * 9 / 5) + 32) STORED,
+      min_temp_f NUMERIC GENERATED ALWAYS AS ((min_temp * 9 / 5) + 32) STORED,
+      uv_index FLOAT NOT NULL,
+      rain_probability FLOAT NOT NULL
     );";
 
     $pdo->exec($sql);

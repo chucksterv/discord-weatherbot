@@ -12,15 +12,52 @@ $dotenv->load();
 
 $current_hour = date('H');
 
-// if ($current_hour >= 6 && $current_hour < 7) {
-$weather_api = new WeatherAPI();
-$weather_data = $weather_api->getWeatherData();
+if ($current_hour >= 6 && $current_hour < 7) {
+    $weather_api = new WeatherAPI();
+    $weather_data = $weather_api->getWeatherData();
 
-// } elseif ($current_hour >= 1 && $current_hour < 2) {
-//     $weather_api = new WeatherAPI(latitude : 36.309384, longitude : -115.294567, timezone : "America/Los_Angeles", city : "Las Vegas", temp_format : "F");
-//     $weather_data = $weather_api->getWeatherData();
-// }
-//Todo Add error handling
+} elseif ($current_hour >= 1 && $current_hour < 2) {
+    $weather_api = new WeatherAPI(latitude : 36.309384, longitude : -115.294567, timezone : "America/Los_Angeles", city : "Las Vegas", temp_format : "F");
+
+}
+// Todo Add error handling
+
+try {
+
+    $sql = "INSERT INTO daily_weather(
+        latitude,
+        longitude,
+        timezone,
+        city,
+        max_temp,
+        min_temp,
+        uv_index,
+        rain_probability
+      )
+      values (?, ?, ?, ?, ?, ?, ?, ?);";
+
+    $prepared = $pdo->prepare($sql);
+    $prepared->execute(
+        [
+          $weather_api->latitude,
+          $weather_api->longitude,
+          $weather_api->timezone,
+          $weather_api->city,
+          $weather_api->max_temp,
+          $weather_api->min_temp,
+          $weather_api->uv_index,
+          $weather_api->rain_probability
+         ]
+    );
+    if ($prepared->rowCount() > 0) {
+        echo "Inserted data into daily_weather.", PHP_EOL;
+    } else {
+        echo "No data was inserted.", PHP_EOL;
+    }
+
+} catch (PDOException $e) {
+    echo "DB Error. Error inserting into daily_weather: " . $e->getMessage();
+}
 $discord = new Discord(
     [
       'token' => $_ENV['DISCORD_TOKEN'],
