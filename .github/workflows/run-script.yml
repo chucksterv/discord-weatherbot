@@ -1,9 +1,14 @@
+#I've opted not to use this workflow.
+#This was supposed to work hand in hand with a Neon DB that I just created.
+#However the DB stores timestamps in a different format with no option to change it to my timezone.
+#This would leave all my previous data in a different timezone and the new data in the UTC format.
+#I would also most likely need to modify the if conditions in index.php to use UTC as that's what github actions use.
 name: Run PHP Script Twice Daily
 
 on:
   schedule:
-    - cron: "0 8 * * *" # 8:00 AM UTC
-    - cron: "0 20 * * *" # 8:00 PM UTC
+    - cron: "15 20 * * *"
+    - cron: "15 13 * * *"
   workflow_dispatch:
 
 jobs:
