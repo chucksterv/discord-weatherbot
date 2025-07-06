@@ -1,0 +1,38 @@
+name: Run PHP Script Twice Daily
+
+on:
+  schedule:
+    - cron: "0 8 * * *" # 8:00 AM UTC
+    - cron: "0 20 * * *" # 8:00 PM UTC
+  workflow_dispatch:
+
+jobs:
+  run-php:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.4
+          extensions: pdo, pdo_pgsql
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Set up .env
+        run: |
+          echo "DB_TYPE=${{ secrets.DB_TYPE}}" >> .env
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+          echo "DB_NAME=${{ secrets.DB_NAME}}" >> .env
+          echo "DB_USER=${{ secrets.DB_USER }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+          echo "DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN}}" >> .env
+          echo "DISCORD_CHANNEL=${{ secrets.DISCORD_CHANNEL}}" >> .env
+        if: ${{ secrets.DB_HOST != '' }}
+
+      - name: Run script
+        run: php index.php

@@ -12,13 +12,13 @@ $dotenv->load();
 
 $current_hour = date('H');
 
-if ($current_hour >= 6 && $current_hour < 7) {
-    $weather_api = new WeatherAPI();
+// if ($current_hour >= 6 && $current_hour < 7) {
+$weather_api = new WeatherAPI();
 
-} elseif ($current_hour >= 1 && $current_hour < 2) {
-    $weather_api = new WeatherAPI(latitude : 36.309384, longitude : -115.294567, timezone : "America/Los_Angeles", city : "Las Vegas", temp_format : "F");
-
-}
+// } elseif ($current_hour >= 1 && $current_hour < 2) {
+//     $weather_api = new WeatherAPI(latitude : 36.309384, longitude : -115.294567, timezone : "America/Los_Angeles", city : "Las Vegas", temp_format : "F");
+//
+// }
 // Todo Add error handling
 if (isset($weather_api)) {
     $weather_data = $weather_api->getWeatherData();
