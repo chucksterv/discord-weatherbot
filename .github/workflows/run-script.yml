@@ -32,7 +32,6 @@ jobs:
           echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
           echo "DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN}}" >> .env
           echo "DISCORD_CHANNEL=${{ secrets.DISCORD_CHANNEL}}" >> .env
-        if: ${{ secrets.DB_HOST != '' }}
 
       - name: Run script
         run: php index.php
