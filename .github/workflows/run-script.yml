@@ -7,8 +7,8 @@ name: Run PHP Script Twice Daily
 
 on:
   schedule:
-    - cron: "15 20 * * *"
-    - cron: "15 13 * * *"
+#    - cron: "15 20 * * *"
+#   - cron: "15 13 * * *"
   workflow_dispatch:
 
 jobs:
