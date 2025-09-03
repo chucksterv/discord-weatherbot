@@ -1,8 +1,13 @@
 # Use an official PHP image
 FROM php:8.3-cli
 
-# Install system dependencies and PDO MySQL
-RUN pdo_pgsql
+# Install system dependencies required for PostgreSQL
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install PHP extensions
+RUN docker-php-ext-install pdo pdo_pgsql
 
 # Set working directory
 WORKDIR /app
@@ -10,7 +15,7 @@ WORKDIR /app
 # Copy composer files first (better caching)
 COPY composer.json ./
 
-# Install dependencies
+# Install Composer and dependencies
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && rm composer-setup.php \
@@ -18,4 +23,3 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 
 # Copy app files
 COPY . .
-
