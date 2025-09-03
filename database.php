@@ -16,9 +16,6 @@ try {
         $_ENV['DB_PORT'] ?? getenv('DB_PORT')
     );
 
-    echo "DSN: " . $dsn . PHP_EOL;
-    echo "==================" . PHP_EOL;
- 
     $username = $_ENV['DB_USER'] ?? getenv('DB_USER');
     $password = $_ENV['DB_PASSWORD'] ?? getenv('DB_PASSWORD');
 
