@@ -25,7 +25,7 @@ try {
         "pgsql:host=%s;dbname=%s;port=%s",
         $_ENV['DB_HOST'] ?? getenv('DB_HOST'),
         $_ENV['DB_NAME'] ?? getenv('DB_NAME'),
-        $_ENV['DB_PORT'] ?? getenv('DB_PORT') ?? '5432'
+        '5432'
     );
     
     echo "DSN: " . $dsn . PHP_EOL;
