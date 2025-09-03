@@ -9,11 +9,11 @@ if(file_exists(__DIR__ . '/.env')){
 try {
     $con_str =  sprintf(
         "%s:host=%s;dbname=%s;user=%s;password=%s",
-        $_ENV['DB_TYPE'],
-        $_ENV['DB_HOST'],
-        $_ENV['DB_NAME'],
-        $_ENV['DB_USER'],
-        $_ENV['DB_PASSWORD']
+        $_ENV['DB_TYPE'] ?? getenv('DB_TYPE'),
+        $_ENV['DB_HOST'] ?? getenv('DB_HOST'),
+        $_ENV['DB_NAME'] ?? getenv('DB_NAME'),
+        $_ENV['DB_USER'] ?? getenv('DB_USER'),
+        $_ENV['DB_PASSWORD'] ?? getenv('DB_PASSWORD')
     );
 
     $pdo = new \PDO($con_str);
