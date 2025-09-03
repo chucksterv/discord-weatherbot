@@ -8,7 +8,7 @@ RUN docker-php-ext-install pdo pdo_pgsql
 WORKDIR /app
 
 # Copy composer files first (better caching)
-COPY composer.json composer.lock ./
+COPY composer.json ./
 
 # Install dependencies
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
