@@ -9,10 +9,11 @@ if(file_exists(__DIR__ . '/.env')){
 
 try {
     $dsn = sprintf(
-        "%s:host=%s;dbname=%s",
+        "%s:host=%s;dbname=%s;port=%s",
         $_ENV['DB_TYPE'] ?? getenv('DB_TYPE'),
         $_ENV['DB_HOST'] ?? getenv('DB_HOST'),
         $_ENV['DB_NAME'] ?? getenv('DB_NAME')
+        $_ENV['DB_PORT'] ?? getenv('DB_PORT')
     );
 
     $username = $_ENV['DB_USER'] ?? getenv('DB_USER');
