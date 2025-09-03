@@ -2,7 +2,7 @@
 FROM php:8.3-cli
 
 # Install system dependencies and PDO MySQL
-RUN docker-php-ext-install pdo pdo_pgsql
+RUN pdo_pgsql
 
 # Set working directory
 WORKDIR /app
