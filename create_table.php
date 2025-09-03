@@ -7,7 +7,7 @@ try {
 
     $sql = "CREATE TABLE IF NOT EXISTS daily_weather (
       id SERIAL PRIMARY KEY,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
       latitude DOUBLE PRECISION NOT NULL,
       longitude DOUBLE PRECISION NOT NULL,
       timezone VARCHAR (50) NOT NULL,
