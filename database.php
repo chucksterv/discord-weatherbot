@@ -1,26 +1,22 @@
 <?php
-require_once __DIR__.'/vendor/autoload.php';
-
-if(file_exists(__DIR__ . '/.env')){
-  $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-  $dotenv->load();
-}
 
 try {
-    $con_str =  sprintf(
-        "%s:host=%s;dbname=%s;user=%s;password=%s",
+    $dsn = sprintf(
+        "%s:host=%s;dbname=%s",
         $_ENV['DB_TYPE'] ?? getenv('DB_TYPE'),
         $_ENV['DB_HOST'] ?? getenv('DB_HOST'),
-        $_ENV['DB_NAME'] ?? getenv('DB_NAME'),
-        $_ENV['DB_USER'] ?? getenv('DB_USER'),
-        $_ENV['DB_PASSWORD'] ?? getenv('DB_PASSWORD')
+        $_ENV['DB_NAME'] ?? getenv('DB_NAME')
     );
 
-    $pdo = new \PDO($con_str);
+    $username = $_ENV['DB_USER'] ?? getenv('DB_USER');
+    $password = $_ENV['DB_PASSWORD'] ?? getenv('DB_PASSWORD');
+
+    $pdo = new \PDO($dsn, $username, $password);
     $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
-    //    echo "Database connection successful." . PHP_EOL;
+    echo "Database connection successful." . PHP_EOL;
 
 } catch (\PDOException $e) {
     echo "Database connection failed: " . $e->getMessage() . PHP_EOL;
 }
+
