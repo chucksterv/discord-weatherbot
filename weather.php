@@ -13,7 +13,6 @@
  * @package  WeatherBot
  * @author   D Diwelgama <20625456+chucksterv@users.noreply.github.com>
  * @license  MIT License
- * @link     https://google.com
  */
 class WeatherAPI
 {
@@ -171,8 +170,8 @@ class WeatherAPI
         $message .= "Stay safe and enjoy your day! 😊\n";
 
         $message .= ($temp_format == "C"
-          ? $_ENV['DISC_ID_ME']
-          : $_ENV['DISC_ID_TAY']);
+          ? $_ENV['DISC_ID_ME'] ?? getenv('DISC_ID_ME')
+          : $_ENV['DISC_ID_TAY'] ?? getenv('DISC_ID_TAY');
 
         return $message;
     }

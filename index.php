@@ -7,8 +7,10 @@ require_once __DIR__.'/vendor/autoload.php';
 require_once 'database.php';
 require_once 'weather.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+if(file_exists(__DIR__ . '/.env')){
+  $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+  $dotenv->load();
+}
 
 $options = getopt("", ["city"]);
 $city = $options['city'] ?? null;
@@ -82,7 +84,7 @@ if (isset($weather_api)) {
 
 $discord = new Discord(
     [
-      'token' => $_ENV['DISCORD_TOKEN'],
+      'token' => $_ENV['DISCORD_TOKEN'] ?? getenv('DISCORD_TOKEN'),
     ]
 );
 
@@ -90,7 +92,7 @@ $discord -> on(
     'init',
     function (Discord $discord) use ($weather_data) {
         echo "Bot is ready!", PHP_EOL;
-        $channelId = $_ENV['DISCORD_CHANNEL'];
+        $channelId = $_ENV['DISCORD_CHANNEL'] ?? getenv('DISCORD_CHANNEL');
 
         $message = MessageBuilder::new()
           ->setContent($weather_data ?? "Your code is running at a time it's not supposed to. Check the server. (cronjobs and server time)");
