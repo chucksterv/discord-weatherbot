@@ -14,33 +14,23 @@ if(file_exists(__DIR__ . '/.env')){
 
 $options = getopt("", ["city:"]);
 $city = $options['city'] ?? null;
-echo($city);
- switch ($city) {
-   case 'lasvegas':
-     $weather_api = new WeatherAPI(
-       latitude : 36.309384, 
-       longitude : -115.294567, 
-       timezone : "America/Los_Angeles", 
-       city : "Las Vegas", 
-       temp_format : "F"
-     );
-     break;
 
-   default:
+switch ($city) {
+  case 'lasvegas':
+    $weather_api = new WeatherAPI(
+      latitude : 36.309384, 
+      longitude : -115.294567, 
+      timezone : "America/Los_Angeles", 
+      city : "Las Vegas", 
+      temp_format : "F"
+    );
+    break;
+
+  default:
     $weather_api = new WeatherAPI();
-     break;
- }
+    break;
+}
 
-/* $current_hour = date('H'); */
-/**/
-/* if ($current_hour >= 6 && $current_hour < 7) { */
-/*     $weather_api = new WeatherAPI(); */
-/**/
-/* } elseif ($current_hour >= 1 && $current_hour < 2) { */
-/*     $weather_api = new WeatherAPI(latitude : 36.309384, longitude : -115.294567, timezone : "America/Los_Angeles", city : "Las Vegas", temp_format : "F"); */
-/**/
-/* } */
-/**/
 if (isset($weather_api)) {
     $weather_data = $weather_api->getWeatherData();
 
@@ -95,7 +85,7 @@ $discord -> on(
         $channelId = $_ENV['DISCORD_CHANNEL'] ?? getenv('DISCORD_CHANNEL');
 
         $message = MessageBuilder::new()
-          ->setContent($weather_data ?? "Your code is running at a time it's not supposed to. Check the server. (cronjobs and server time)");
+          ->setContent($weather_data ?? "Weather API failed. Troubleshoot the API connection.");
         $channel = $discord->getChannel($channelId);
         $channel->sendMessage($message)->then(
             function () use ($discord) {
