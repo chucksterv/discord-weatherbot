@@ -171,7 +171,7 @@ class WeatherAPI
 
         $message .= ($temp_format == "C"
           ? ($_ENV['DISC_ID_ME'] ?? getenv('DISC_ID_ME'))
-          : ($_ENV['DISC_ID_TAY'] ?? getenv('DISC_ID_TAY'));
+          : ($_ENV['DISC_ID_TAY'] ?? getenv('DISC_ID_TAY')));
 
         return $message;
     }
