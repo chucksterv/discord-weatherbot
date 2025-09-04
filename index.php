@@ -12,9 +12,9 @@ if(file_exists(__DIR__ . '/.env')){
   $dotenv->load();
 }
 
-$options = getopt("", ["city"]);
+$options = getopt("", ["city:"]);
 $city = $options['city'] ?? null;
-
+echo($city);
  switch ($city) {
    case 'lasvegas':
      $weather_api = new WeatherAPI(
